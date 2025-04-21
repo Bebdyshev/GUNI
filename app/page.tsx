@@ -241,9 +241,9 @@ export default function Home() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-4 mb-2">
                     <Avatar>
-                      <AvatarImage src={`/placeholder.svg?height=40&width=40&text=${student.name[0]}`} />
-                      <AvatarFallback className="bg-[#FF8DA1]">{student.name[0]}</AvatarFallback>
-                    </Avatar>
+                        <AvatarImage src={""} />
+                        <AvatarFallback className="bg-[#FF8DA1]">{student.name[0] + student.name.split(" ")[1][0]}</AvatarFallback>
+                      </Avatar>
                     <div>
                       <p className="font-medium">{student.name}</p>
                       <p className="text-sm text-gray-500">{student.university}</p>

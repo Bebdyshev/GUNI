@@ -186,8 +186,7 @@ export default function ProfilePage() {
                 <CardHeader className="bg-gradient-to-r from-[#FF8DA1]/10 to-[#D14A68]/10 pb-2">
                   <div className="flex flex-col items-center">
                     <Avatar className="h-24 w-24 mb-4">
-                      <AvatarImage src="/placeholder.svg?height=96&width=96&text=АК" />
-                      <AvatarFallback className="bg-[#D14A68] text-white text-2xl">АК</AvatarFallback>
+                      <AvatarFallback className="bg-[#D14A68] text-white text-2xl">{userInfo?.name}</AvatarFallback>
                     </Avatar>
                     <CardTitle className="text-2xl text-center">{userInfo?.name}</CardTitle>
                     <CardDescription className="text-center">{userInfo?.email}</CardDescription>

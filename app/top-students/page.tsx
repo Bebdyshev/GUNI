@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 import { Search, Filter, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -111,6 +112,17 @@ export default function TopStudentsPage() {
     },
   ]
 
+  const [readingTimes, setReadingTimes] = useState<Record<number, number>>({})
+
+  useEffect(() => {
+    // При первом рендере на клиенте сгенерируем для каждого студента своё время
+    const times: Record<number, number> = {}
+    students.forEach((s) => {
+      times[s.id] = Math.floor(Math.random() * 20) + 5
+    })
+    setReadingTimes(times)
+  }, [])
+
   return (
     <main className="flex min-h-screen flex-col items-center pt-24 pb-16">
       <PageHeader
@@ -172,8 +184,8 @@ export default function TopStudentsPage() {
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-4 mb-2">
                       <Avatar>
-                        <AvatarImage src={`/placeholder.svg?height=40&width=40&text=${student.name[0]}`} />
-                        <AvatarFallback className="bg-[#FF8DA1]">{student.name[0]}</AvatarFallback>
+                        <AvatarImage src={""} />
+                        <AvatarFallback className="bg-[#FF8DA1]">{student.name[0] + student.name.split(" ")[1][0]}</AvatarFallback>
                       </Avatar>
                       <div>
                         <p className="font-medium">{student.name}</p>
@@ -213,7 +225,11 @@ export default function TopStudentsPage() {
                       </div>
                       <div className="flex items-center">
                         <BookOpen className="h-4 w-4 text-gray-500 mr-1" />
-                        <span>{Math.floor(Math.random() * 20) + 5} мин. чтения</span>
+                        <span>
+                          {readingTimes[student.id] != null
+                            ? `${readingTimes[student.id]} мин. чтения`
+                            : ""}
+                        </span>
                       </div>
                     </div>
                   </CardContent>
