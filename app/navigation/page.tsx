@@ -1,13 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { BookOpen, Brain, Users } from "lucide-react"
+import { BookOpen, Brain, Users, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import PageHeader from "@/components/page-header"
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 
 export default function NavigationPage() {
   const educationalCategories = [
@@ -60,7 +59,7 @@ export default function NavigationPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div className="relative w-full md:w-96">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
               <Input
                 placeholder="Поиск по образовательным материалам..."
                 className="pl-10 border-[#D14A68]/30 focus:border-[#D14A68]"

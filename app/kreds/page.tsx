@@ -1,14 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Award, CheckCircle2, Gift, BookOpen, Users, Star } from "lucide-react"
+import { Award, Calendar, CheckCircle2, Gift, BookOpen, Users, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import PageHeader from "@/components/page-header"
-import { CalendarIcon } from "@radix-ui/react-icons"
 
 export default function KredsPage() {
   const earnMethods = [
@@ -16,7 +15,7 @@ export default function KredsPage() {
       title: "Ежедневный вход",
       description: "Получайте 5 кредитов каждый день просто за вход на платформу",
       credits: "+5",
-      icon: <CalendarIcon className="h-10 w-10 text-[#D14A68]" />,
+      icon: <Calendar className="h-10 w-10 text-[#D14A68]" />,
     },
     {
       title: "Прохождение тестов",
@@ -86,7 +85,7 @@ export default function KredsPage() {
     },
     {
       title: "Автор",
-      description: "Опубликуйте свою первую статью",
+      description: "��публикуйте свою первую статью",
       progress: 0,
       reward: 150,
     },

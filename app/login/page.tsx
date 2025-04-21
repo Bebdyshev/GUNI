@@ -1,19 +1,57 @@
 "use client"
 
-import { useState } from "react"
+import type React from "react"
+
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Eye, EyeOff, Lock } from "lucide-react"
+import { Eye, EyeOff, Lock, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { EnvelopeClosedIcon } from "@radix-ui/react-icons"
+
+// Добавляем импорт useAuth и useRouter
+import { useAuth } from "@/context/auth-context"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const { login, user } = useAuth()
+  const router = useRouter()
+
+  // Если пользователь уже авторизован, перенаправляем на главную
+  useEffect(() => {
+    if (user) {
+      router.push("/")
+    }
+  }, [user, router])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    setIsSubmitting(true)
+
+    try {
+      const success = await login(email, password)
+      if (success) {
+        router.push("/")
+      } else {
+        setError("Неверный email или пароль. Пароль должен содержать минимум 6 символов.")
+      }
+    } catch (err) {
+      setError("Произошла ошибка при входе. Пожалуйста, попробуйте снова.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center py-12 px-4 bg-gray-50">
@@ -36,7 +74,9 @@ export default function LoginPage() {
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="login">Вход</TabsTrigger>
-              <TabsTrigger value="register">Регистрация</TabsTrigger>
+              <TabsTrigger value="register" onClick={() => router.push("/register")}>
+                Регистрация
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="login">
               <CardHeader>
@@ -44,17 +84,21 @@ export default function LoginPage() {
                 <CardDescription className="text-center">Войдите в свой аккаунт, чтобы продолжить</CardDescription>
               </CardHeader>
               <CardContent>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="grid gap-4">
+                    {error && <div className="bg-red-50 text-red-500 p-3 rounded-md text-sm">{error}</div>}
                     <div className="grid gap-2">
                       <Label htmlFor="email">Email</Label>
                       <div className="relative">
-                        <EnvelopeClosedIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                         <Input
                           id="email"
                           type="email"
                           placeholder="name@example.com"
                           className="pl-10 border-[#D14A68]/30 focus:border-[#D14A68]"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
                         />
                       </div>
                     </div>
@@ -72,6 +116,9 @@ export default function LoginPage() {
                           type={showPassword ? "text" : "password"}
                           placeholder="••••••••"
                           className="pl-10 border-[#D14A68]/30 focus:border-[#D14A68]"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
                         />
                         <button
                           type="button"
@@ -89,7 +136,13 @@ export default function LoginPage() {
                       </Label>
                     </div>
                   </div>
-                  <Button className="w-full mt-6 bg-[#D14A68] hover:bg-[#FF8DA1] text-white">Войти</Button>
+                  <Button
+                    type="submit"
+                    className="w-full mt-6 bg-[#D14A68] hover:bg-[#FF8DA1] text-white"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Вход..." : "Войти"}
+                  </Button>
                 </form>
               </CardContent>
               <CardFooter className="flex flex-col space-y-4">
@@ -118,77 +171,7 @@ export default function LoginPage() {
               </CardFooter>
             </TabsContent>
             <TabsContent value="register">
-              <CardHeader>
-                <CardTitle className="text-2xl text-center">Создать аккаунт</CardTitle>
-                <CardDescription className="text-center">
-                  Зарегистрируйтесь, чтобы получить доступ ко всем возможностям
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form>
-                  <div className="grid gap-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="grid gap-2">
-                        <Label htmlFor="first-name">Имя</Label>
-                        <Input
-                          id="first-name"
-                          placeholder="Имя"
-                          className="border-[#D14A68]/30 focus:border-[#D14A68]"
-                        />
-                      </div>
-                      <div className="grid gap-2">
-                        <Label htmlFor="last-name">Фамилия</Label>
-                        <Input
-                          id="last-name"
-                          placeholder="Фамилия"
-                          className="border-[#D14A68]/30 focus:border-[#D14A68]"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
-                      <div className="relative">
-                        <EnvelopeClosedIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="name@example.com"
-                          className="pl-10 border-[#D14A68]/30 focus:border-[#D14A68]"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="password">Пароль</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                        <Input
-                          id="password"
-                          type={showPassword ? "text" : "password"}
-                          placeholder="••••••••"
-                          className="pl-10 border-[#D14A68]/30 focus:border-[#D14A68]"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                        >
-                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="terms" />
-                      <Label htmlFor="terms" className="text-sm">
-                        Я согласен с{" "}
-                        <Link href="/terms" className="text-[#D14A68] hover:underline">
-                          условиями использования
-                        </Link>
-                      </Label>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-6 bg-[#D14A68] hover:bg-[#FF8DA1] text-white">Зарегистрироваться</Button>
-                </form>
-              </CardContent>
+              {/* Пустой контент, так как при клике на вкладку перенаправляем на страницу регистрации */}
             </TabsContent>
           </Tabs>
         </Card>

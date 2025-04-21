@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { BookOpen, Brain, Users, Award, School, HelpCircle } from "lucide-react"
+import { ChevronDown, BookOpen, Brain, Users, Award, School, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Preloader from "@/components/preloader"
 import { cn } from "@/lib/utils"
-import { ChevronDownIcon } from "@radix-ui/react-icons"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -59,7 +58,7 @@ export default function Home() {
           transition={{ delay: 1, duration: 1 }}
           className="absolute bottom-10 animate-bounce"
         >
-          <ChevronDownIcon className="h-8 w-8 text-[#D14A68]" />
+          <ChevronDown className="h-8 w-8 text-[#D14A68]" />
         </motion.div>
       </section>
 

@@ -3,12 +3,15 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Cross2Icon } from "@radix-ui/react-icons"
+// Добавляем импорт useAuth
+import { useAuth } from "@/context/auth-context"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // Используем хук useAuth для получения информации о пользователе
+  const { user, logout } = useAuth()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -25,33 +28,63 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="#" className="text-gray-700 hover:text-[#D14A68] transition-colors">
+          <Link href="/" className="text-gray-700 hover:text-[#D14A68] transition-colors">
             Главная
           </Link>
-          <Link href="#" className="text-gray-700 hover:text-[#D14A68] transition-colors">
+          <Link href="/navigation" className="text-gray-700 hover:text-[#D14A68] transition-colors">
             Образование
           </Link>
-          <Link href="#" className="text-gray-700 hover:text-[#D14A68] transition-colors">
+          <Link href="/self-analysis" className="text-gray-700 hover:text-[#D14A68] transition-colors">
             Тесты
           </Link>
-          <Link href="#" className="text-gray-700 hover:text-[#D14A68] transition-colors">
+          <Link href="/top-students" className="text-gray-700 hover:text-[#D14A68] transition-colors">
             Статьи
           </Link>
-          <Link href="#" className="text-gray-700 hover:text-[#D14A68] transition-colors">
-            FAQ
+          <Link href="/universities" className="text-gray-700 hover:text-[#D14A68] transition-colors">
+            Вузы
           </Link>
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <Button variant="outline" className="border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white">
-            Войти
-          </Button>
-          <Button className="bg-[#D14A68] hover:bg-[#FF8DA1] text-white">Регистрация</Button>
+          {user ? (
+            <>
+              <div className="flex items-center mr-2">
+                <span className="text-[#D14A68] font-medium mr-2">{user.credits}</span>
+                <span className="text-gray-600">кредитов</span>
+              </div>
+              <Button
+                variant="outline"
+                className="border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white"
+                onClick={() => (window.location.href = "/profile")}
+              >
+                Профиль
+              </Button>
+              <Button className="bg-[#D14A68] hover:bg-[#FF8DA1] text-white" onClick={logout}>
+                Выйти
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                className="border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white"
+                onClick={() => (window.location.href = "/login")}
+              >
+                Войти
+              </Button>
+              <Button
+                className="bg-[#D14A68] hover:bg-[#FF8DA1] text-white"
+                onClick={() => (window.location.href = "/register")}
+              >
+                Регистрация
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
         <button className="md:hidden text-gray-700 focus:outline-none" onClick={toggleMenu}>
-          {isMenuOpen ? <Cross2Icon size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -67,48 +100,90 @@ export default function Header() {
           >
             <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
               <Link
-                href="#"
+                href="/"
                 className="text-gray-700 hover:text-[#D14A68] transition-colors py-2 border-b border-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Главная
               </Link>
               <Link
-                href="#"
+                href="/navigation"
                 className="text-gray-700 hover:text-[#D14A68] transition-colors py-2 border-b border-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Образование
               </Link>
               <Link
-                href="#"
+                href="/self-analysis"
                 className="text-gray-700 hover:text-[#D14A68] transition-colors py-2 border-b border-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Тесты
               </Link>
               <Link
-                href="#"
+                href="/top-students"
                 className="text-gray-700 hover:text-[#D14A68] transition-colors py-2 border-b border-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Статьи
               </Link>
               <Link
-                href="#"
+                href="/universities"
                 className="text-gray-700 hover:text-[#D14A68] transition-colors py-2 border-b border-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
-                FAQ
+                Вузы
               </Link>
               <div className="flex flex-col space-y-3 pt-2">
-                <Button
-                  variant="outline"
-                  className="border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white w-full"
-                >
-                  Войти
-                </Button>
-                <Button className="bg-[#D14A68] hover:bg-[#FF8DA1] text-white w-full">Регистрация</Button>
+                {user ? (
+                  <>
+                    <div className="flex items-center mb-2">
+                      <span className="text-[#D14A68] font-medium mr-2">{user.credits}</span>
+                      <span className="text-gray-600">кредитов</span>
+                    </div>
+                    <Button
+                      variant="outline"
+                      className="border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white w-full"
+                      onClick={() => {
+                        window.location.href = "/profile"
+                        setIsMenuOpen(false)
+                      }}
+                    >
+                      Профиль
+                    </Button>
+                    <Button
+                      className="bg-[#D14A68] hover:bg-[#FF8DA1] text-white w-full"
+                      onClick={() => {
+                        logout()
+                        setIsMenuOpen(false)
+                      }}
+                    >
+                      Выйти
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="outline"
+                      className="border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white w-full"
+                      onClick={() => {
+                        window.location.href = "/login"
+                        setIsMenuOpen(false)
+                      }}
+                    >
+                      Войти
+                    </Button>
+                    <Button
+                      className="bg-[#D14A68] hover:bg-[#FF8DA1] text-white w-full"
+                      onClick={() => {
+                        window.location.href = "/register"
+                        setIsMenuOpen(false)
+                      }}
+                    >
+                      Регистрация
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

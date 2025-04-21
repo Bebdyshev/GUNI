@@ -2,14 +2,13 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Brain, Lightbulb, Sparkles, CheckCircle2 } from "lucide-react"
+import { Brain, Lightbulb, Sparkles, CheckCircle2, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import PageHeader from "@/components/page-header"
-import { ChevronRightIcon } from "@radix-ui/react-icons"
 
 export default function SelfAnalysisPage() {
   const [activeTest, setActiveTest] = useState<string | null>(null)
@@ -233,7 +232,7 @@ export default function SelfAnalysisPage() {
                               variant="ghost"
                               className="text-[#D14A68] hover:text-[#D14A68] hover:bg-[#D14A68]/10"
                             >
-                              Подробнее <ChevronRightIcon className="ml-1 h-4 w-4" />
+                              Подробнее <ChevronRight className="ml-1 h-4 w-4" />
                             </Button>
                           </div>
                         </CardContent>

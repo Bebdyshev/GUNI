@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { MapPin, Phone } from "lucide-react"
+import { Mail, MapPin, Phone, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import PageHeader from "@/components/page-header"
-import { EnvelopeClosedIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -51,7 +50,7 @@ export default function ContactPage() {
                     <div className="text-center py-8">
                       <div className="flex justify-center mb-4">
                         <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
-                          <PaperPlaneIcon className="h-8 w-8 text-green-600" />
+                          <Send className="h-8 w-8 text-green-600" />
                         </div>
                       </div>
                       <h3 className="text-xl font-bold mb-2">Сообщение отправлено!</h3>
@@ -156,7 +155,7 @@ export default function ContactPage() {
                     <div className="space-y-6">
                       <div className="flex items-start">
                         <div className="mr-4 bg-[#D14A68]/10 p-3 rounded-full">
-                          <EnvelopeClosedIcon className="h-6 w-6 text-[#D14A68]" />
+                          <Mail className="h-6 w-6 text-[#D14A68]" />
                         </div>
                         <div>
                           <h3 className="font-medium">Email</h3>

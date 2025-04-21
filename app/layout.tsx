@@ -4,6 +4,8 @@ import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+// Импортируем AuthProvider
+import { AuthProvider } from "@/context/auth-context"
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] })
 
@@ -12,6 +14,7 @@ export const metadata = {
   description: "Современная образовательная платформа для студентов",
 }
 
+// Обновляем RootLayout, оборачивая ThemeProvider в AuthProvider
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <Header />
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            <Header />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   )

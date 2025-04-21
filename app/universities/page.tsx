@@ -2,14 +2,13 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { MapPin, GraduationCap, ExternalLink, HelpCircle } from "lucide-react"
+import { Search, MapPin, GraduationCap, Calendar, ExternalLink, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import PageHeader from "@/components/page-header"
-import { MagnifyingGlassIcon, CalendarIcon } from "@radix-ui/react-icons"
 
 export default function UniversitiesPage() {
   const [activeRegion, setActiveRegion] = useState("all")
@@ -134,20 +133,25 @@ export default function UniversitiesPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div className="relative w-full md:w-96">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
               <Input
                 placeholder="Поиск университетов..."
                 className="pl-10 border-[#D14A68]/30 focus:border-[#D14A68]"
               />
             </div>
             <div className="flex gap-2">
-              <Button 
-                variant={activeRegion === "all" ? "default" : "outline"} 
-                className={activeRegion === "all" ? "bg-[#D14A68] hover:bg-[#FF8DA1] text-white" : "border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text  hover:bg-[#FF8DA1] text-white" : "border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white"}
-                onClick={() => setActiveRegion("all")}
-              >
-                Все
-              </Button>
+            <Button
+              variant={activeRegion === "all" ? "default" : "outline"}
+              className={
+                activeRegion === "all"
+                  ? "bg-[#D14A68] hover:bg-[#FF8DA1] text-white"
+                  : "border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white"
+              }
+              onClick={() => setActiveRegion("all")}
+            >
+              Все
+            </Button>
+
               <Button 
                 variant={activeRegion === "kazakhstan" ? "default" : "outline"} 
                 className={activeRegion === "kazakhstan" ? "bg-[#D14A68] hover:bg-[#FF8DA1] text-white" : "border-[#D14A68] text-[#D14A68] hover:bg-[#D14A68] hover:text-white"}
@@ -190,9 +194,9 @@ export default function UniversitiesPage() {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-2 flex-grow">
-                    <p className="text-sm text-gray-600 mb-4\">{university.description}</p>
+                    <p className="text-sm text-gray-600 mb-4">{university.description}</p>
                     <div className="mb-4">
-                      <div classNameName="flex items-center mb-2">
+                      <div className="flex items-center mb-2">
                         <GraduationCap size={16} className="text-[#D14A68] mr-2" />
                         <span className="text-sm font-medium">Программы:</span>
                       </div>
@@ -211,7 +215,7 @@ export default function UniversitiesPage() {
                     </div>
                     <div className="mb-4">
                       <div className="flex items-center mb-2">
-                        <CalendarIcon size={16} className="text-[#D14A68] mr-2" />
+                        <Calendar size={16} className="text-[#D14A68] mr-2" />
                         <span className="text-sm font-medium">Дедлайн: {university.deadline}</span>
                       </div>
                     </div>
