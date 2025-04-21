@@ -97,15 +97,6 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
-          <div>
-            <h3 className="font-bold text-lg mb-4">Контакты</h3>
-            <ul className="space-y-2">
-              <li className="text-gray-600">info@guni.kz</li>
-              <li className="text-gray-600">+7 (776) 762-55-77</li>
-              <li className="text-gray-600">г. Актоеб, ул. Мангилик Ел, 8</li>
-            </ul>
-          </div>
         </div>
 
         <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
