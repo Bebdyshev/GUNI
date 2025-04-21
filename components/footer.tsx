@@ -102,8 +102,8 @@ export default function Footer() {
             <h3 className="font-bold text-lg mb-4">Контакты</h3>
             <ul className="space-y-2">
               <li className="text-gray-600">info@guni.kz</li>
-              <li className="text-gray-600">+7 (777) 123-45-67</li>
-              <li className="text-gray-600">г. Алматы, ул. Достык, 12</li>
+              <li className="text-gray-600">+7 (776) 762-55-77</li>
+              <li className="text-gray-600">г. Актоеб, ул. Мангилик Ел, 8</li>
             </ul>
           </div>
         </div>
