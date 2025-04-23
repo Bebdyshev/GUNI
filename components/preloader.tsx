@@ -24,7 +24,7 @@ export default function Preloader() {
           className="mb-4"
         >
           <div className="text-6xl font-bold bg-gradient-to-r from-[#FF8DA1] to-[#D14A68] text-transparent bg-clip-text">
-            GUNI
+            GoUNI
           </div>
         </motion.div>
         <motion.div

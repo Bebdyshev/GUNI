@@ -37,7 +37,7 @@ export default function Home() {
           className="max-w-4xl"
         >
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#FF8DA1] to-[#D14A68] text-transparent bg-clip-text">
-            GUNI
+            GoUNI
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-700">
             Образовательная платформа, которая поможет вам раскрыть свой потенциал и найти свой путь в мире образования
